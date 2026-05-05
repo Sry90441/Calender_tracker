@@ -13,7 +13,7 @@ namespace taskplan_calendar
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
+                .UseStartup<Startup2>()
                 .ConfigureAppConfiguration((builderContext, config) => { config.AddEnvironmentVariables(); })
                 .Build();
     }
