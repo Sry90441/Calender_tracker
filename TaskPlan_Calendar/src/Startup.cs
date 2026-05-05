@@ -11,7 +11,7 @@ using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace taskplan_calendar
-{
+{.
     public class Startup
     {
         public Startup(IConfiguration configuration)
