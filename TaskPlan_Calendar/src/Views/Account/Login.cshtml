@@ -1,0 +1,28 @@
+@model taskplan_calendar.ViewModel.LoginViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Login</h2>
+<form asp-controller="Account" asp-action="Login" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Password"></label>
+        <input asp-for="Password" type="password" class="form-control" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <input type="hidden" asp-for="ReturnUrl" />
+    <button type="submit" class="btn btn-primary">Login</button>
+    <a class="btn btn-link" asp-controller="Account" asp-action="Register">Sign up</a>
+</form>
+<form asp-controller="Account" asp-action="CreateTestUser" method="post" class="mt-3">
+    <button type="submit" class="btn btn-secondary">Create Test User 1 (quick)</button>
+</form>
+
+@section Scripts {
+    <script src="~/js/account.js"></script>
+}

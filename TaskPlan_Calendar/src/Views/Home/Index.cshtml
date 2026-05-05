@@ -1,0 +1,45 @@
+@using taskplan_calendar.Models
+@model IEnumerable<Todo>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Home";
+}
+<div class="row">
+    <div class="col-md-2">
+        <div class="list-group">
+            <a class="list-group-item list-group-item-action">A</a>
+            <a class="list-group-item list-group-item-action">B</a>
+            <a class="list-group-item list-group-item-action">C</a>
+            <a class="list-group-item list-group-item-action">D</a>
+        </div>
+    </div>
+    <div class="col-md-10">
+        <h3>Today's todos</h3>
+        <form asp-controller="Home" asp-action="AddTodo" method="post" class="form-inline mb-3">
+            <input name="title" class="form-control mr-2" placeholder="New todo for today" required />
+            <button class="btn btn-success">Add</button>
+        </form>
+
+        <ul class="list-group">
+            @foreach (var t in Model)
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>@t.Title</strong>
+                        <div class="text-muted">@t.Description</div>
+                    </div>
+                    <div>
+                        @if (t.IsDone) { <span class="badge badge-success">Done</span> }
+                    </div>
+                </li>
+            }
+        </ul>
+
+        <h3 class="mt-4">Calendar (today)</h3>
+        <div class="card p-3">(Calendar placeholder — integrate FullCalendar next)</div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/home.js"></script>
+}
