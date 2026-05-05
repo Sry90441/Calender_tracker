@@ -209,6 +209,111 @@ namespace TaskPlan_Calendar.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("taskplan_calendar.Models.CalendarEvent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ColorHex")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(1000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("EndDateTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsAllDay")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("MonthlyRecurrenceDay")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("RecurrenceEndDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("RecurrencePattern")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("StartDateTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<byte?>("WeeklyRecurrenceDays")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("UserId", "StartDateTime")
+                        .HasDatabaseName("IX_CalendarEvents_UserId_StartDateTime");
+
+                    b.ToTable("CalendarEvents");
+                });
+
+            modelBuilder.Entity("taskplan_calendar.Models.CalendarEventOccurrence", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CalendarEventId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsCanceled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsModified")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ModifiedDescription")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("ModifiedEndDateTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("ModifiedStartDateTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ModifiedTitle")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("OccurrenceDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CalendarEventId", "OccurrenceDate")
+                        .HasDatabaseName("IX_CalendarEventOccurrences_EventId_Date");
+
+                    b.ToTable("CalendarEventOccurrences");
+                });
+
             modelBuilder.Entity("taskplan_calendar.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -327,6 +432,27 @@ namespace TaskPlan_Calendar.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("taskplan_calendar.Models.CalendarEvent", b =>
+                {
+                    b.HasOne("taskplan_calendar.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("taskplan_calendar.Models.CalendarEventOccurrence", b =>
+                {
+                    b.HasOne("taskplan_calendar.Models.CalendarEvent", "CalendarEvent")
+                        .WithMany()
+                        .HasForeignKey("CalendarEventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CalendarEvent");
                 });
 
             modelBuilder.Entity("taskplan_calendar.Models.Todo", b =>

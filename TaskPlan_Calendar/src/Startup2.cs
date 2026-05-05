@@ -45,6 +45,8 @@ namespace taskplan_calendar
 
             // register application services
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<ICalendarService, CalendarService>();
+            services.AddScoped<IRecurrenceService, RecurrenceService>();
 
             services.ConfigureApplicationCookie(options =>
             {
