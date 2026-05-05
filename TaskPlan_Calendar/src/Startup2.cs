@@ -43,6 +43,9 @@ namespace taskplan_calendar
             // register BCrypt hasher to avoid storing plain-text passwords and to use bcrypt
             services.AddScoped<IPasswordHasher<ApplicationUser>, BCryptPasswordHasher>();
 
+            // register application services
+            services.AddScoped<ICategoryService, CategoryService>();
+
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = "/Account/Login";
