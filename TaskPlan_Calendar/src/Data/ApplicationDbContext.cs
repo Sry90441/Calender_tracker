@@ -13,5 +13,7 @@ namespace taskplan_calendar.Data
 
         public DbSet<Todo> Todos { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Appointment> Appointments { get; set; }
+        public DbSet<TodoList> TodoLists { get; set; }
     }
 }
