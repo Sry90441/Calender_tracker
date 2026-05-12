@@ -5,6 +5,7 @@ using taskplan_calendar.Data;
 using taskplan_calendar.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using taskplan_calendar.ViewModel;
 
 namespace taskplan_calendar.Controllers
 {
@@ -41,6 +42,25 @@ namespace taskplan_calendar.Controllers
             _db.Todos.Add(todo);
             _db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        /// <summary>
+        /// Display the calendar page with monthly view by default.
+        /// Data is loaded asynchronously via API calls from JavaScript.
+        /// </summary>
+        public IActionResult Calendar(string view = "monthly")
+        {
+            if (!new[] { "daily", "weekly", "monthly" }.Contains(view))
+                view = "monthly";
+
+            var model = new CalendarViewViewModel
+            {
+                ViewType = view,
+                ViewDate = DateTime.UtcNow,
+                Events = new System.Collections.Generic.List<CalendarEventViewModel>()
+            };
+
+            return View("~/Views/Calendar/Index.cshtml", model);
         }
     }
 }
