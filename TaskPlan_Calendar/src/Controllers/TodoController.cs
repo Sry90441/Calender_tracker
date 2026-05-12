@@ -1,12 +1,9 @@
-using System;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using taskplan_calendar.Data;
 using taskplan_calendar.Models;
-using taskplan_calendar.ViewModel;
 
 namespace taskplan_calendar.Controllers
 {

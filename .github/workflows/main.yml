@@ -1,0 +1,20 @@
+name: Check source branch
+
+on:
+  pull_request:
+
+jobs:
+  validate-branch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Verify source branch is development
+        run: |
+          echo "Source branch: ${{ github.head_ref }}"
+
+          if [ "${{ github.head_ref }}" != "development" ]; then
+            echo "❌ PR must come from 'development' branch"
+            exit 1
+          fi
+
+          echo "✅ Valid source branch"
