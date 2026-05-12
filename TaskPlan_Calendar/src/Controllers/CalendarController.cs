@@ -1,9 +1,14 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using taskplan_calendar.Data;
+using taskplan_calendar.Models;
 using taskplan_calendar.Models;
 using taskplan_calendar.Services;
 using taskplan_calendar.ViewModel;
@@ -438,3 +443,4 @@ namespace taskplan_calendar.Controllers
         }
     }
 }
+
