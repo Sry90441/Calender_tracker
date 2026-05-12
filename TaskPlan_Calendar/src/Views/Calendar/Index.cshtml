@@ -1,0 +1,45 @@
+@using taskplan_calendar.ViewModel
+@model CalendarViewViewModel
+
+@{
+    ViewData["Title"] = "Calendar";
+    Layout = "~/Views/Shared/_MenuLayout.cshtml";
+}
+
+<div class="topbar d-flex justify-content-between align-items-center">
+    <div>
+        <h4 class="mb-0">Calendar</h4>
+    </div>
+    <div class="d-flex gap-2 align-items-center">
+        <div class="btn-group" role="group">
+            <a href="/home/calendar?view=daily" class="btn btn-sm @(Model.ViewType == "daily" ? "btn-primary" : "btn-outline-primary")">
+                Daily
+            </a>
+            <a href="/home/calendar?view=weekly" class="btn btn-sm @(Model.ViewType == "weekly" ? "btn-primary" : "btn-outline-primary")">
+                Weekly
+            </a>
+            <a href="/home/calendar?view=monthly" class="btn btn-sm @(Model.ViewType == "monthly" ? "btn-primary" : "btn-outline-primary")">
+                Monthly
+            </a>
+        </div>
+        <button class="btn btn-primary btn-sm" id="addEventBtn">
+            + Add Event
+        </button>
+    </div>
+</div>
+
+<div class="main-content">
+    <div id="calendarContainer" class="calendar-container">
+        <!-- Calendar content will be rendered here -->
+        <p class="text-muted text-center mt-5">Calendar view: <strong>@Model.ViewType</strong></p>
+        <p class="text-muted text-center">Date: <strong>@Model.ViewDate.ToString("yyyy-MM-dd")</strong></p>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById('addEventBtn')?.addEventListener('click', function() {
+            alert('Add event functionality - coming soon');
+        });
+    </script>
+}

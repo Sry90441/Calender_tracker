@@ -7,10 +7,10 @@
 <div class="row">
     <div class="col-md-2">
         <div class="list-group">
-            <a class="list-group-item list-group-item-action">A</a>
-            <a class="list-group-item list-group-item-action">B</a>
-            <a class="list-group-item list-group-item-action">C</a>
-            <a class="list-group-item list-group-item-action">D</a>
+            <a asp-controller="Calendar" asp-action="Index" class="list-group-item list-group-item-action">A - Calendar</a>
+            <a asp-controller="Todo" asp-action="Index" class="list-group-item list-group-item-action">B - Todos</a>
+            <a asp-controller="Category" asp-action="Index" class="list-group-item list-group-item-action">C - Categories</a>
+            <a href="#" class="list-group-item list-group-item-action disabled">D - Coming Soon</a>
         </div>
     </div>
     <div class="col-md-10">
