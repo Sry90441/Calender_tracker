@@ -441,6 +441,109 @@ namespace taskplan_calendar.Controllers
                 UpdatedAt = occurrence.UpdatedAt
             };
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateAppointment([FromBody] CreateEditAppointmentViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                var userId = _userManager.GetUserId(User);
+
+                if (model.EndTime <= model.StartTime)
+                    return BadRequest(new { error = "End time must be after start time" });
+
+                var appointment = new Appointment
+                {
+                    UserId = userId,
+                    Title = model.Title,
+                    Description = model.Description,
+                    StartTime = model.StartTime,
+                    EndTime = model.EndTime,
+                    CategoryId = model.CategoryId,
+                    IsRecurring = model.IsRecurring,
+                    RecurrencePattern = model.RecurrencePattern,
+                    RecurrenceEndDate = model.RecurrenceEndDate,
+                    RecurrenceDaysOfWeek = model.RecurrenceDaysOfWeek,
+                    CreatedAt = DateTime.UtcNow,
+                    UpdatedAt = DateTime.UtcNow
+                };
+
+                _db.Appointments.Add(appointment);
+                _db.SaveChanges();
+
+                return Ok(new { id = appointment.Id, message = "Appointment created successfully" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
+        }
+
+        [HttpPut("{id}")]
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdateAppointment(int id, [FromBody] CreateEditAppointmentViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                var userId = _userManager.GetUserId(User);
+                var appointment = _db.Appointments.FirstOrDefault(a => a.Id == id && a.UserId == userId);
+
+                if (appointment == null)
+                    return NotFound(new { error = "Appointment not found" });
+
+                if (model.EndTime <= model.StartTime)
+                    return BadRequest(new { error = "End time must be after start time" });
+
+                appointment.Title = model.Title;
+                appointment.Description = model.Description;
+                appointment.StartTime = model.StartTime;
+                appointment.EndTime = model.EndTime;
+                appointment.CategoryId = model.CategoryId;
+                appointment.IsRecurring = model.IsRecurring;
+                appointment.RecurrencePattern = model.RecurrencePattern;
+                appointment.RecurrenceEndDate = model.RecurrenceEndDate;
+                appointment.RecurrenceDaysOfWeek = model.RecurrenceDaysOfWeek;
+                appointment.UpdatedAt = DateTime.UtcNow;
+
+                _db.SaveChanges();
+
+                return Ok(new { message = "Appointment updated successfully" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
+        }
+
+        [HttpDelete("{id}")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteAppointment(int id)
+        {
+            try
+            {
+                var userId = _userManager.GetUserId(User);
+                var appointment = _db.Appointments.FirstOrDefault(a => a.Id == id && a.UserId == userId);
+
+                if (appointment == null)
+                    return NotFound(new { error = "Appointment not found" });
+
+                _db.Appointments.Remove(appointment);
+                _db.SaveChanges();
+
+                return Ok(new { message = "Appointment deleted successfully" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
+        }
     }
 }
 
