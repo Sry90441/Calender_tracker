@@ -1,0 +1,540 @@
+/* ========================================
+   Calendar Layout - Core Structure
+   ======================================== */
+
+.calendar-container {
+    display: flex;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+}
+
+.calendar-sidebar {
+    width: 200px;
+    background: #f8f9fa;
+    border-right: 1px solid #dee2e6;
+    overflow-y: auto;
+    padding: 15px;
+}
+
+.calendar-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* ========================================
+   Top Navigation Bar
+   ======================================== */
+
+.calendar-topbar {
+    background: #fff;
+    border-bottom: 1px solid #dee2e6;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.calendar-navigation {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+#viewLabel {
+    margin: 0 15px;
+    font-weight: bold;
+    min-width: 200px;
+    text-align: center;
+    color: #495057;
+}
+
+.calendar-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.calendar-actions .btn {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+/* ========================================
+   View Switcher Buttons
+   ======================================== */
+
+.view-switcher {
+    display: flex;
+    gap: 5px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    overflow: hidden;
+    background: white;
+}
+
+.view-btn {
+    padding: 6px 12px;
+    border: none;
+    background: white;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    flex: 1;
+    text-align: center;
+    border-right: 1px solid #dee2e6;
+}
+
+.view-btn:last-child {
+    border-right: none;
+}
+
+.view-btn:hover {
+    background: #f0f0f0;
+}
+
+.view-btn.active {
+    background: #007bff;
+    color: white;
+}
+
+/* ========================================
+   Calendar Content Area
+   ======================================== */
+
+.calendar-content {
+    flex: 1;
+    overflow: auto;
+    background: white;
+    padding: 20px;
+}
+
+/* ========================================
+   Sidebar Navigation
+   ======================================== */
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.sidebar-btn {
+    padding: 10px 15px;
+    border: 1px solid #dee2e6;
+    background: white;
+    cursor: pointer;
+    border-radius: 4px;
+    text-align: left;
+    transition: all 0.2s;
+    text-decoration: none;
+    color: #495057;
+    font-weight: 500;
+    display: block;
+}
+
+.sidebar-btn:hover {
+    background: #007bff;
+    color: white;
+    border-color: #0056b3;
+}
+
+.sidebar-btn.active {
+    background: #007bff;
+    color: white;
+    border-color: #0056b3;
+}
+
+/* ========================================
+   Monthly View Grid
+   ======================================== */
+
+.calendar-grid {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border: 1px solid #dee2e6;
+}
+
+.calendar-grid thead {
+    background: #f8f9fa;
+    position: sticky;
+    top: 0;
+}
+
+.calendar-grid th {
+    border: 1px solid #dee2e6;
+    padding: 10px;
+    text-align: center;
+    font-weight: 600;
+    color: #495057;
+}
+
+.calendar-grid td {
+    border: 1px solid #dee2e6;
+    padding: 0;
+    min-height: 100px;
+    vertical-align: top;
+    background: white;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.calendar-grid td:hover {
+    background: #f0f8ff;
+}
+
+.calendar-cell {
+    padding: 5px;
+    position: relative;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.cell-date {
+    font-weight: bold;
+    color: #495057;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
+
+.cell-date.other-month {
+    color: #adb5bd;
+}
+
+.events-container {
+    flex: 1;
+    overflow-y: auto;
+    max-height: 80px;
+}
+
+/* ========================================
+   Event Items
+   ======================================== */
+
+.event-item {
+    background: #007bff;
+    color: white;
+    padding: 3px 5px;
+    border-radius: 2px;
+    font-size: 0.75rem;
+    margin: 2px 0;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.event-item:hover {
+    opacity: 0.8;
+}
+
+.event-item.all-day {
+    background: #6c757d;
+    border-color: #5a6268;
+}
+
+/* ========================================
+   Daily View
+   ======================================== */
+
+.daily-view {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 0;
+    border: 1px solid #dee2e6;
+    height: 100%;
+}
+
+.daily-time-col {
+    background: #f8f9fa;
+    border-right: 1px solid #dee2e6;
+    overflow-y: auto;
+}
+
+.daily-time-slot {
+    border-bottom: 1px solid #dee2e6;
+    padding: 8px;
+    text-align: center;
+    font-size: 0.75rem;
+    color: #495057;
+    min-height: 40px;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+.daily-events-col {
+    background: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.daily-event {
+    position: absolute;
+    background: #007bff;
+    color: white;
+    padding: 5px;
+    border-radius: 2px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    left: 2px;
+    right: 2px;
+    border: 1px solid #0056b3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.daily-event:hover {
+    opacity: 0.8;
+    z-index: 100;
+}
+
+/* ========================================
+   Weekly View Grid
+   ======================================== */
+
+.weekly-grid {
+    display: grid;
+    grid-template-columns: 60px repeat(7, 1fr);
+    gap: 0;
+    border: 1px solid #dee2e6;
+    height: 100%;
+    min-height: 600px;
+}
+
+.weekly-time-header {
+    background: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    padding: 10px 5px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.85rem;
+    border-right: 1px solid #dee2e6;
+}
+
+.weekly-time-slot {
+    border-bottom: 1px solid #dee2e6;
+    border-right: 1px solid #dee2e6;
+    background: white;
+    min-height: 40px;
+    padding: 2px;
+    font-size: 0.75rem;
+    position: relative;
+    overflow: visible;
+}
+
+.weekly-time-slot:last-child {
+    border-right: none;
+}
+
+.weekly-time-slot.hour-header {
+    background: #f8f9fa;
+    text-align: center;
+    font-weight: 600;
+    color: #495057;
+}
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+
+@media (max-width: 992px) {
+    .calendar-topbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .view-switcher {
+        order: 3;
+        width: 100%;
+    }
+
+    .calendar-actions {
+        order: 2;
+    }
+}
+
+@media (max-width: 768px) {
+    .calendar-container {
+        flex-direction: column;
+    }
+
+    .calendar-sidebar {
+        width: 100%;
+        height: auto;
+        max-height: 120px;
+        border-right: none;
+        border-bottom: 1px solid #dee2e6;
+        padding: 10px;
+    }
+
+    .sidebar-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .sidebar-btn {
+        flex: 1;
+        min-width: 80px;
+        padding: 8px 10px;
+        font-size: 0.85rem;
+    }
+
+    .calendar-topbar {
+        padding: 10px;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #viewLabel {
+        min-width: auto;
+        margin: 5px 0;
+    }
+
+    .view-switcher {
+        width: 100%;
+    }
+
+    .calendar-grid td {
+        min-height: 70px;
+    }
+
+    .calendar-cell {
+        padding: 3px;
+    }
+
+    .events-container {
+        max-height: 50px;
+    }
+
+    .daily-view,
+    .weekly-grid {
+        height: auto;
+    }
+
+    .weekly-grid {
+        grid-template-columns: 50px repeat(7, 1fr);
+        font-size: 0.7rem;
+    }
+
+    .daily-time-col {
+        width: 50px;
+    }
+
+    .daily-time-slot {
+        min-height: 30px;
+        padding: 4px;
+    }
+}
+
+@media (max-width: 480px) {
+    .calendar-sidebar {
+        max-height: 80px;
+    }
+
+    .sidebar-btn {
+        padding: 6px 8px;
+        font-size: 0.75rem;
+    }
+
+    .calendar-topbar {
+        padding: 8px;
+        gap: 5px;
+    }
+
+    .view-btn {
+        padding: 4px 8px;
+        font-size: 0.8rem;
+    }
+
+    .calendar-content {
+        padding: 10px;
+    }
+
+    .calendar-grid td {
+        min-height: 60px;
+        padding: 3px;
+    }
+
+    .cell-date {
+        font-size: 0.8rem;
+    }
+
+    .event-item {
+        font-size: 0.65rem;
+        padding: 2px 3px;
+    }
+}
+
+/* ========================================
+   Loading & Error States
+   ======================================== */
+
+.calendar-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+    color: #6c757d;
+}
+
+.calendar-error {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    border-radius: 4px;
+    border: 1px solid #f5c6cb;
+}
+
+/* ========================================
+   Modal & Form Styling
+   ======================================== */
+
+.modal-body {
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.form-label {
+    font-weight: 500;
+    color: #495057;
+    margin-bottom: 5px;
+}
+
+.form-check {
+    padding: 8px 0;
+}
+
+.form-check-label {
+    margin-bottom: 0;
+    cursor: pointer;
+}
+
+/* ========================================
+   Utilities
+   ======================================== */
+
+.text-muted {
+    color: #6c757d !important;
+}
+
+.py-5 {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+}
+
+.text-center {
+    text-align: center;
+}
